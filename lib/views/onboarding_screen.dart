@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../theme/app_theme.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  final Widget? ctaTrailingIcon;
+
+  const OnboardingScreen({super.key, this.ctaTrailingIcon});
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -14,17 +19,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   List<Map<String, String>> pages = [
     {
-      "title": "Welcome",
-      "description": "Welcome to our app"
+      "title": "Task Management & To-Do List",
+      "description": "This productive tool is designed to help you better manage your task project-wise conveniently!"
     },
-    {
-      "title": "Fast",
-      "description": "Experience fast performance"
-    },
-    {
-      "title": "Secure",
-      "description": "Your data is safe"
-    },
+    // {
+    //   "title": "Fast",
+    //   "description": "Experience fast performance"
+    // },
+    // {
+    //   "title": "Secure",
+    //   "description": "Your data is safe"
+    // },
   ];
 
   Future<void> _finishOnboarding() async {
@@ -56,7 +61,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 Text(
                   pages[index]["title"]!,
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  textAlign: TextAlign.center,
+                  style: AppTheme.headingStyle.copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
@@ -65,9 +74,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 SizedBox(height: 40),
                 if (index == pages.length - 1)
-                  ElevatedButton(
-                    onPressed: _finishOnboarding,
-                    child: Text("Get Started"),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(AppTheme.lavender),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        padding: WidgetStateProperty.all(
+                          const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        ),
+                      ),
+                      onPressed: _finishOnboarding,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(""),
+                          Text("Let's Start"),
+                          if (widget.ctaTrailingIcon != null) ...[
+                            widget.ctaTrailingIcon!,
+                          ],
+                        ],
+                      ),
+                    ),
                   )
               ],
             ),

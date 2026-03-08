@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/app_theme.dart';
 import 'onboarding_screen.dart';
@@ -33,7 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => OnboardingScreen()),
+        MaterialPageRoute(builder: (_) => OnboardingScreen(
+            ctaTrailingIcon: SvgPicture.asset("lib/assets/arrow_right.svg")
+        )),
       );
     }
   }
