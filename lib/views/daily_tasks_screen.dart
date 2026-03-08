@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/views/widgets/appbar.dart';
+import 'package:task_manager/views/widgets/bottom_navigation.dart';
 import 'package:task_manager/views/widgets/horizontal_date_picker.dart';
 import '../models/task_card_model.dart';
 import '../theme/app_theme.dart';
+import 'add_task.dart';
 import 'widgets/task_card.dart';
 
 class DailyTasksScreen extends StatefulWidget {
@@ -13,6 +16,13 @@ class DailyTasksScreen extends StatefulWidget {
 
 class _DailyTasksScreenState extends State<DailyTasksScreen> {
   String _selectedFilter = 'All';
+  int currentIndex = 0;
+
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   List<TaskCardModel> get _filteredTasks {
     if (_selectedFilter == 'All') {
@@ -24,9 +34,9 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Today\'s Tasks'),
-        elevation: 0,
+      appBar: AppTopBar(
+        title: 'Today’s Tasks',
+        showBackButton: true,
       ),
       body: Column(
         children: [
@@ -131,6 +141,16 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
                   ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigation(
+        selectedIndex: currentIndex,
+        onItemSelected: onTabSelected,
+        onAddPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTaskScreen()),
+          );
+        },
       ),
     );
   }

@@ -19,6 +19,7 @@ class TaskInput extends StatelessWidget {
   final bool isRequired;
   final String? validationMessage;
   final FormFieldValidator<String>? validator;
+  final Color? backgroundColor;
 
   const TaskInput({
     super.key,
@@ -37,6 +38,7 @@ class TaskInput extends StatelessWidget {
     this.isRequired = false,
     this.validationMessage,
     this.validator,
+    this.backgroundColor,
   });
 
   @override
@@ -53,8 +55,16 @@ class TaskInput extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 12),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: const Color(0xffF4F4F6),
+          color: backgroundColor ?? const Color(0xffF4F4F6),
           borderRadius: BorderRadius.circular(22),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+              spreadRadius: 0,
+            ),
+          ],
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

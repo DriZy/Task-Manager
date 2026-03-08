@@ -84,6 +84,7 @@ flutter:
     - lib/assets/document_text.svg
     - lib/assets/ellipse_logo.png
     - lib/assets/home.svg
+    - lib/assets/notification_icon.svg
     - lib/assets/office_project.svg
     - lib/assets/personal_project.svg
     - lib/assets/profile_user.svg

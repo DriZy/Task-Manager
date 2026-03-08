@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/views/add_task.dart';
+import 'package:task_manager/views/widgets/appbar.dart';
 import 'package:task_manager/views/widgets/bottom_navigation.dart';
 import 'package:task_manager/views/widgets/dashboard_highlight.dart';
 import 'package:task_manager/views/widgets/group_card.dart';
@@ -32,7 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
+      appBar: AppTopBar(
+        subtitle: 'Hello!',
+        title: 'Livia Vaccaro',
+        showBackButton: false
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),

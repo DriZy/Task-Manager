@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:task_manager/views/widgets/appbar.dart';
 import 'package:task_manager/views/widgets/task_input.dart';
 
 import '../theme/app_theme.dart';
@@ -35,7 +36,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(_screenTitle), centerTitle: true),
+      appBar: AppTopBar(
+        title: 'Add Project',
+        showBackButton: true,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -62,6 +66,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       label: 'Task Group',
       value: _group,
       hint: 'Select a group',
+      backgroundColor: AppTheme.primaryColor,
       leading: SvgPicture.asset(
         'lib/assets/briefcase.svg',
         width: 20,
@@ -91,6 +96,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       type: InputType.text,
       isRequired: true,
       validationMessage: 'Project name is required',
+      backgroundColor: AppTheme.primaryColor,
     );
   }
 
@@ -100,6 +106,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       type: InputType.multiline,
       isRequired: true,
       validationMessage: 'Please add a short description',
+      backgroundColor: AppTheme.primaryColor,
     );
   }
 
@@ -113,6 +120,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         colorFilter: ColorFilter.mode(AppTheme.lavenderLight, BlendMode.srcIn),
       ),
       value: _formatDate(_startDate),
+      backgroundColor: AppTheme.primaryColor,
       hint: 'Select start date',
       type: InputType.date,
       isRequired: true,
@@ -154,6 +162,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       type: InputType.date,
       isRequired: true,
       validationMessage: 'Please select an end date',
+      backgroundColor: AppTheme.primaryColor,
       validator: (_) =>
           _validateNotPast(_endDate, 'End date cannot be in the past'),
       trailing: SvgPicture.asset(
@@ -180,6 +189,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       hint: 'No logo selected',
       isRequired: true,
       validationMessage: 'Please pick a logo or file',
+      backgroundColor: AppTheme.primaryColor,
       onChanged: (selectedFileName) {
         setState(() {
           _taskLogoName = selectedFileName;
@@ -194,12 +204,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       child: ElevatedButton(
         onPressed: _handleSubmit,
         style: ElevatedButton.styleFrom(
+          backgroundColor: AppTheme.lavender,
           padding: const EdgeInsets.symmetric(vertical: 18),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
         ),
-        child: const Text(_submitLabel, style: TextStyle(fontSize: 18)),
+        child: const Text(_submitLabel, style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
       ),
     );
   }
