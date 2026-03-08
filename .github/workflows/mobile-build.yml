@@ -51,8 +51,8 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk-${{ github.run_number }}
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: task_manager-release-apk-${{ github.run_number }}
+          path: build/app/outputs/flutter-apk/task_manager-release.apk
           if-no-files-found: error
 
   ios:
@@ -78,12 +78,12 @@ jobs:
       - name: Zip unsigned .app artifact
         run: |
           cd build/ios/iphoneos
-          ditto -c -k --sequesterRsrc --keepParent Runner.app Runner-unsigned.app.zip
+          ditto -c -k --sequesterRsrc --keepParent task_manager.app task_manager.app.zip
 
-      - name: Upload unsigned iOS app artifact
+      - name: Upload iOS app artifact
         uses: actions/upload-artifact@v4
         with:
-          name: runner-unsigned-app-${{ github.run_number }}
-          path: build/ios/iphoneos/Runner-unsigned.app.zip
+          name: task_manager-app-${{ github.run_number }}
+          path: build/ios/iphoneos/task_manager.app.zip
           if-no-files-found: error
 
