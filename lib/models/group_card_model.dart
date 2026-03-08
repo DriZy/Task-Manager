@@ -50,7 +50,7 @@ final List<GroupCardModel> groupCardsList = [
     iconAsset: "lib/assets/briefcase.svg",
     projectType: "QA Testing",
     progressValue: 0.63,
-    progressColor: AppTheme.lavender,
+    progressColor: AppTheme.softPink,
     totalTasks: 6,
     iconBackgroundColor: AppTheme.iconBgPink
   ),

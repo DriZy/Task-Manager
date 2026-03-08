@@ -6,10 +6,6 @@ import 'package:task_manager/views/widgets/dashboard_highlight.dart';
 import 'package:task_manager/views/widgets/group_card.dart';
 import 'package:task_manager/views/widgets/progress_card.dart';
 import 'package:task_manager/models/group_card_model.dart';
-import 'package:task_manager/models/task_card_model.dart';
-import 'package:task_manager/views/widgets/task_card.dart';
-import 'package:task_manager/views/daily_tasks_screen.dart';
-import 'details_screen.dart';
 import '../theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,9 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DashboardHighlight(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("In Progress", style: AppTheme.sectionTitleStyle.copyWith(fontSize: 19, color: Colors.black),),
+                  SizedBox(width: 10),
+                  Text("6", style: AppTheme.subTextStyle.copyWith(fontSize: 13, fontStyle: FontStyle.normal, color: AppTheme.lavender),),
+                ],
+              ),
+              const SizedBox(height: 10),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -71,7 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   ],),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Task Groups", style: AppTheme.sectionTitleStyle.copyWith(fontSize: 19, color: Colors.black),),
+                  SizedBox(width: 10),
+                  Text("4", style: AppTheme.subTextStyle.copyWith(fontSize: 13, fontStyle: FontStyle.normal, color: AppTheme.lavender),),
+                ],
+              ),
+              const SizedBox(height: 10),
               ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -104,7 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 itemCount: groupCardsList.length,
               ),
-
             ],
           ),
         ),
