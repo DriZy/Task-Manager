@@ -41,7 +41,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: const Color(0xFFFFFFFF),
     hintColor: themeLightBlue,
-    scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    scaffoldBackgroundColor: Colors.transparent,
     fontFamily: _fontFamily,
     textTheme: TextTheme(
       displayLarge: lexendDecaStyle(
@@ -72,8 +72,11 @@ class AppTheme {
       ),
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: themeWhite,
-      foregroundColor: themeWhite,
+      backgroundColor: Colors.transparent,
+      foregroundColor: themeBlack,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      scrolledUnderElevation: 0,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

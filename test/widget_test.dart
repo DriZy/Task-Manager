@@ -7,24 +7,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:todo_list/main.dart';
+import 'package:todo_list/theme/app_theme.dart';
+import 'package:todo_list/views/home/home_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Home screen uses edge-to-edge background-friendly scaffold chrome', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.lightTheme,
+        home: const HomeScreen(),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Welcome to the Home Screen!'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
+    final appBar = tester.widget<AppBar>(find.byType(AppBar));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(scaffold.backgroundColor, Colors.transparent);
+    expect(scaffold.extendBodyBehindAppBar, isTrue);
+    expect(appBar.backgroundColor, Colors.transparent);
+    expect(appBar.elevation, 0);
   });
 }
