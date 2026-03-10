@@ -2,37 +2,34 @@ import 'package:flutter/material.dart';
 
 class GradientBlob {
   final Color color;
-  final double? top;
-  final double? left;
-  final double? right;
-  final double? bottom;
-  final double size;
+  final double? topFraction;
+  final double? leftFraction;
+  final double? rightFraction;
+  final double? bottomFraction;
+  /// size as a fraction of screen width
+  final double sizeFraction;
 
   GradientBlob({
     required this.color,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
-    this.size = 280,
+    this.topFraction,
+    this.bottomFraction,
+    this.leftFraction,
+    this.rightFraction,
+    this.sizeFraction = 0.75,
   });
 }
 
 class DecorativeDot {
   final Color color;
-  final double size;
-  final double? top;
-  final double? bottom;
-  final double? left;
-  final double? right;
+  final double sizePx;
+  final double topFraction;
+  final double leftFraction;
 
   DecorativeDot({
     required this.color,
-    required this.size,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right,
+    required this.sizePx,
+    required this.topFraction,
+    required this.leftFraction,
   });
 }
 
@@ -50,65 +47,75 @@ class AppBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Default blobs and dots if not provided
-    final defaultBlobs = blobs ?? [
-      GradientBlob(color: const Color(0xFFEDF046), top: -100, right: -80),
-      GradientBlob(color: const Color(0xFF46F080), top: 86, left: -100),
-      GradientBlob(color: const Color(0xFF2555FF), top: 232, right: -100),
-      GradientBlob(color: const Color(0xFF46BDF0), top: 354, left: -70),
-    ];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final sw = constraints.maxWidth;
+        final sh = constraints.maxHeight;
 
-    final defaultDots = dots ?? [
-      DecorativeDot(color: Color(0xFF92DEFF), size: 8, top: 73, left: 252),
-      DecorativeDot(color: Color(0xFFBE9FFF), size: 4, top: 92, left: 202),
-      DecorativeDot(color: Color(0xFF7FFCAA), size: 4, top: 362, left: 281),
-      DecorativeDot(color:Color(0xFFEAED2A), size: 8, top: 383, left: 250),
-      DecorativeDot(color: Color(0xFFA4E7F9), size: 4, top: 405, left: 176),
-      DecorativeDot(color: Color(0xFFFFD7E4), size: 8, top: 391, left: 138),
-    ];
+        final defaultBlobs = blobs ?? [
+          GradientBlob(color: const Color(0xFFEDF046), topFraction: -0.12, rightFraction: -0.23),
+          GradientBlob(color: const Color(0xFF46F080), topFraction: 0.07,  leftFraction:  -0.30),
+          GradientBlob(color: const Color(0xFF2555FF), topFraction: 0.20,  rightFraction: -0.26),
+          GradientBlob(color: const Color(0xFF46BDF0), topFraction: 0.42,  leftFraction:  -0.18),
+        ];
 
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFFEFF4F6),
-            Color(0xFFF3EEF7),
-            Color(0xFFF7F4E9),
-          ],
-        ),
-      ),
-      child: Stack(
-        children: [
-          // Render blobs in order
-          ...defaultBlobs.map((blob) {
-            return Positioned(
-              top: blob.top,
-              left: blob.left,
-              bottom: blob.bottom,
-              right: blob.right,
-              child: _gradientBlob(blob.color, blob.size),
-            );
-          }).toList(),
+        final defaultDots = dots ?? [
+          DecorativeDot(color: const Color(0xFF92DEFF), sizePx: 8,  topFraction: 0.10, leftFraction: 0.62),
+          DecorativeDot(color: const Color(0xFFBE9FFF), sizePx: 4,  topFraction: 0.13, leftFraction: 0.50),
+          DecorativeDot(color: const Color(0xFF7FFCAA), sizePx: 4,  topFraction: 0.52, leftFraction: 0.70),
+          DecorativeDot(color: const Color(0xFFEAED2A), sizePx: 8,  topFraction: 0.55, leftFraction: 0.62),
+          DecorativeDot(color: const Color(0xFFA4E7F9), sizePx: 4,  topFraction: 0.58, leftFraction: 0.44),
+          DecorativeDot(color: const Color(0xFFFFD7E4), sizePx: 8,  topFraction: 0.56, leftFraction: 0.35),
+        ];
 
-          // Render dots in order
-          ...defaultDots.map((dot) {
-            return Positioned(
-              top: dot.top,
-              bottom: dot.bottom,
-              left: dot.left,
-              right: dot.right,
-              child: _dot(dot.color, dot.size),
-            );
-          }).toList(),
+        return Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFFEFF4F6),
+                Color(0xFFF3EEF7),
+                Color(0xFFF7F4E9),
+              ],
+            ),
+          ),
+          child: Stack(
+            clipBehavior: Clip.hardEdge,
+            children: [
+              // Blobs
+              ...defaultBlobs.map((blob) {
+                final size = sw * blob.sizeFraction;
+                final top    = blob.topFraction    != null ? sh * blob.topFraction!    : null;
+                final bottom = blob.bottomFraction != null ? sh * blob.bottomFraction! : null;
+                final left   = blob.leftFraction   != null ? sw * blob.leftFraction!   : null;
+                final right  = blob.rightFraction  != null ? sw * blob.rightFraction!  : null;
+                return Positioned(
+                  top: top,
+                  bottom: bottom,
+                  left: left,
+                  right: right,
+                  child: _gradientBlob(blob.color, size),
+                );
+              }),
 
-          // PAGE CONTENT
-          Positioned.fill(child: child),
-        ],
-      ),
+              // Dots
+              ...defaultDots.map((dot) {
+                return Positioned(
+                  top: sh * dot.topFraction,
+                  left: sw * dot.leftFraction,
+                  child: _dot(dot.color, dot.sizePx),
+                );
+              }),
+
+              // Page content always on top
+              Positioned.fill(child: child),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -128,7 +135,6 @@ class AppBackground extends StatelessWidget {
     );
   }
 
-  /// DECORATIVE DOT
   static Widget _dot(Color color, double size) {
     return Container(
       width: size,
