@@ -3,9 +3,11 @@ import 'package:todo_list/theme/app_theme.dart';
 import 'package:todo_list/utils/widgets/app_background_widget.dart';
 import 'package:todo_list/utils/widgets/appbar_widget.dart';
 import 'package:todo_list/utils/widgets/dashboard_highlight_widget.dart';
-import 'package:todo_list/utils/widgets/progress_card.dart';
+import 'package:todo_list/utils/widgets/progress_card_widget.dart';
 import 'package:todo_list/models/group_card_model.dart';
-import 'package:todo_list/utils/widgets/group_card.dart';
+import 'package:todo_list/utils/widgets/group_card_widget.dart';
+import 'package:todo_list/views/daily_task/daily_tasks_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -37,7 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 100, left: 24, right: 24),
-                child: DashboardHighlight(),
+                child: DashboardHighlight(
+                  onViewTaskTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DailyTasksScreen()));
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 15, left: 24, right: 24),
@@ -69,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(width: 24),
-                    ProgressCard(
+                    ProgressCardWidget(
                         backgroundColor: AppTheme.themeLightBlue,
                         iconAsset: "assets/icons/briefcase_icon.svg",
                         projectType: "Office Project",
@@ -79,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         iconBackgroundColor: AppTheme.themeIconBgPink
                     ),
                     const SizedBox(width: 20),
-                    ProgressCard(
+                    ProgressCardWidget(
                         backgroundColor: AppTheme.themeLightOrange,
                         iconAsset: "assets/icons/user-octagon_icon.svg",
                         projectType: "Personal Project",
@@ -133,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    child: GroupCard(
+                    child: GroupCardWidget(
                       iconAsset: groupCard.iconAsset,
                       projectType: groupCard.projectType,
                       progressValue: groupCard.progressValue,

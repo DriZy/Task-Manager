@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../theme/app_theme.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class ProgressCard extends StatelessWidget {
+class ProgressCardWidget extends StatelessWidget {
   final Color backgroundColor;
   final String iconAsset;
   final String projectType;
@@ -12,7 +12,7 @@ class ProgressCard extends StatelessWidget {
   final Color progressColor;
   final Color iconBackgroundColor;
 
-  const ProgressCard({
+  const ProgressCardWidget({
     super.key,
     required this.backgroundColor,
     required this.iconAsset,

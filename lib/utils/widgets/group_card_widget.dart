@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../theme/app_theme.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class GroupCard extends StatelessWidget {
+class GroupCardWidget extends StatelessWidget {
   final String iconAsset;
   final String projectType;
   final double progressValue;
@@ -11,7 +11,7 @@ class GroupCard extends StatelessWidget {
   final int totalTasks;
   final Color iconBackgroundColor;
 
-  const GroupCard({
+  const GroupCardWidget({
     super.key,
     required this.iconAsset,
     required this.projectType,

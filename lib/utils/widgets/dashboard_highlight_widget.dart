@@ -3,14 +3,14 @@ import '../../../theme/app_theme.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class DashboardHighlight extends StatelessWidget {
-  const DashboardHighlight({super.key});
+  final VoidCallback? onViewTaskTap;
+
+  const DashboardHighlight({super.key, this.onViewTaskTap});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-
-      /// CARD BACKGROUND
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
         gradient: const LinearGradient(
@@ -40,24 +40,28 @@ class DashboardHighlight extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 28,
-                  vertical: 14,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD9D4F3),
+             InkWell(
+                  onTap: onViewTaskTap ?? () {},
                   borderRadius: BorderRadius.circular(16),
-                ),
-                child: Text(
-                  "View Task",
-                  style: TextStyle(
-                    color: const Color(0xFF5A36D6),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                      vertical: 14,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD9D4F3),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Text(
+                      "View Task",
+                      style: TextStyle(
+                        color: Color(0xFF5A36D6),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
 
@@ -75,7 +79,7 @@ class DashboardHighlight extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            backgroundColor: AppTheme.themeWhite.withOpacity(0.25),
+            backgroundColor: AppTheme.themeWhite.withValues(alpha: 0.25),
             progressColor: AppTheme.themeWhite,
           ),
           Column(
@@ -84,7 +88,7 @@ class DashboardHighlight extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: AppTheme.themeWhite.withOpacity(0.25),
+                  color: AppTheme.themeWhite.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(

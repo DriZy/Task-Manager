@@ -24,36 +24,36 @@ class TaskCardModel {
 // Sample data for group cards
 final List<TaskCardModel> taskCardsList = [
   TaskCardModel(
-      taskIcon: "lib/assets/briefcase.svg",
+      taskIcon: "assets/icons/briefcase_icon.svg",
       taskGroup: "Grocery shopping app design",
       taskTitle: "Market Research",
       taskTime: "10:00 AM",
       status: "Done",
-      iconBackgroundColor: AppTheme.iconBgPink
+      iconBackgroundColor: AppTheme.themeIconBgPink
   ),
   TaskCardModel(
-    taskIcon: "lib/assets/briefcase.svg",
+    taskIcon: "assets/icons/briefcase_icon.svg",
     taskGroup: "Grocery shopping app design",
     taskTitle: "Competitive Analysis",
     taskTime: "12:00 PM",
     status: "In Progress",
-    iconBackgroundColor: AppTheme.iconBgPink
+    iconBackgroundColor: AppTheme.themeIconBgPink
   ),
   TaskCardModel(
-    taskIcon: "lib/assets/user-octagon.svg",
+    taskIcon: "assets/icons/user-octagon_icon.svg",
     taskGroup: "Uber Eats redesign challenge",
     taskTitle: "Create Low-fidelity Wireframe",
     taskTime: "07:00 PM",
     status: "To-do",
-    iconBackgroundColor: AppTheme.iconBgLavender
+    iconBackgroundColor: AppTheme.themeIconBgLavender
   ),
   TaskCardModel(
-    taskIcon: "lib/assets/book.svg",
+    taskIcon: "assets/icons/book_icon.svg",
     taskGroup: "About design sprint",
     taskTitle: "How to pitch a Design Sprint",
     taskTime: "09:00 PM",
     status: "To-do",
-    iconBackgroundColor: AppTheme.iconBgOrange
+    iconBackgroundColor: AppTheme.themeIconBgOrange
   ),
 ];
 
