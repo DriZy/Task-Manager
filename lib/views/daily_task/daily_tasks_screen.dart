@@ -3,11 +3,16 @@ import 'package:todo_list/models/task_card_model.dart';
 import 'package:todo_list/theme/app_theme.dart';
 import 'package:todo_list/utils/widgets/app_background_widget.dart';
 import 'package:todo_list/utils/widgets/appbar_widget.dart';
+import 'package:todo_list/utils/widgets/bottom_navigation_widget.dart';
 import 'package:todo_list/utils/widgets/date_filter_widget.dart';
 import 'package:todo_list/utils/widgets/task_card_widget.dart';
+import 'package:todo_list/views/add_task/add_task_screen.dart';
+import 'package:todo_list/views/home/home_screen.dart';
 
 class DailyTasksScreen extends StatefulWidget {
-  const DailyTasksScreen({super.key});
+  final int initialIndex;
+
+  const DailyTasksScreen({super.key, this.initialIndex = 1});
 
   @override
   State<DailyTasksScreen> createState() => _DailyTasksScreenState();
@@ -15,9 +20,25 @@ class DailyTasksScreen extends StatefulWidget {
 
 class _DailyTasksScreenState extends State<DailyTasksScreen> {
   String _selectedFilter = 'All';
-  int currentIndex = 0;
+  late int currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex;
+  }
 
   void onTabSelected(int index) {
+    if (index == currentIndex) return;
+
+    if (index == 0) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen(initialIndex: 0)),
+      );
+      return;
+    }
+
     setState(() {
       currentIndex = index;
     });
@@ -33,10 +54,22 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: AppBarWidget(
         title: 'Today’s Tasks',
         showBackButton: true,
+        onBack: () {
+          final navigator = Navigator.of(context);
+          if (navigator.canPop()) {
+            navigator.pop();
+          } else {
+            navigator.pushReplacement(
+              MaterialPageRoute(builder: (_) => const HomeScreen(initialIndex: 0)),
+            );
+          }
+        },
       ),
       body: AppBackground(
         blobs: [
@@ -145,16 +178,16 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
         ),
         ),
       ),
-      // bottomNavigationBar: BottomNavigation(
-      //   selectedIndex: currentIndex,
-      //   onItemSelected: onTabSelected,
-      //   onAddPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => AddTaskScreen()),
-      //     );
-      //   },
-      // ),
+      bottomNavigationBar: BottomNavigationWidget(
+        selectedIndex: currentIndex,
+        onItemSelected: onTabSelected,
+        onAddPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTaskScreen()),
+          );
+        },
+      ),
     );
   }
 

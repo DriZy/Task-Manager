@@ -2,25 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/theme/app_theme.dart';
 import 'package:todo_list/utils/widgets/app_background_widget.dart';
 import 'package:todo_list/utils/widgets/appbar_widget.dart';
+import 'package:todo_list/utils/widgets/bottom_navigation_widget.dart';
 import 'package:todo_list/utils/widgets/dashboard_highlight_widget.dart';
 import 'package:todo_list/utils/widgets/progress_card_widget.dart';
 import 'package:todo_list/models/group_card_model.dart';
 import 'package:todo_list/utils/widgets/group_card_widget.dart';
+import 'package:todo_list/views/add_task/add_task_screen.dart';
 import 'package:todo_list/views/daily_task/daily_tasks_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int initialIndex;
+
+  const HomeScreen({super.key, this.initialIndex = 0});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  late int currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex;
+  }
+
+  void onTabSelected(int index) {
+    if (index == currentIndex) return;
+
+    if (index == 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const DailyTasksScreen(initialIndex: 1)),
+      );
+      return;
+    }
+
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: AppBarWidget(
         title: 'Livia Vaccaro',
         subtitle: 'Hello!',
@@ -41,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 100, left: 24, right: 24),
                 child: DashboardHighlight(
                   onViewTaskTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DailyTasksScreen()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DailyTasksScreen(initialIndex: 1)),
+                    );
                   },
                 ),
               ),
@@ -157,6 +190,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         )
+      ),
+      bottomNavigationBar: BottomNavigationWidget(
+        selectedIndex: currentIndex,
+        onItemSelected: onTabSelected,
+        onAddPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTaskScreen()),
+          );
+        },
       ),
     );
   }
