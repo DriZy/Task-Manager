@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/theme/app_theme.dart';
-import 'package:todo_list/utils/first_onboarding_decoration.dart' show FirstOnboardingDecorations;
-import 'package:todo_list/utils/app_background.dart';
+import 'package:todo_list/utils/widgets/app_background_widget.dart';
+import 'package:todo_list/utils/widgets/first_onboarding_decoration_widget.dart';
 import 'package:todo_list/views/home/home_screen.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 

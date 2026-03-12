@@ -51,7 +51,7 @@ class AppTheme {
       ),
       bodyLarge: lexendDecaStyle(
         fontSize: 16,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         color: themeBlack,
       ),
       bodyMedium: lexendDecaStyle(
@@ -105,11 +105,39 @@ class AppTheme {
     fontStyle: FontStyle.normal,
   );
 
+  static TextStyle cardTitle = lexendDecaStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: themeBlack,
+    fontStyle: FontStyle.normal,
+  );
+
   static TextStyle buttonText = lexendDecaStyle(
     fontSize: 19,
     fontWeight: FontWeight.w600,
     color: themeBlack,
     // fontStyle: FontStyle.semiBold,
+  );
+
+  static TextStyle appBarTitle = lexendDecaStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w600,
+    color: themeBlack,
+    fontStyle: FontStyle.normal,
+  );
+
+  static TextStyle appBarSubTitle = lexendDecaStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: themeGray,
+    fontStyle: FontStyle.normal,
+  );
+
+  static TextStyle sectionTitle = lexendDecaStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w600,
+    color: themeBlack,
+    fontStyle: FontStyle.normal,
   );
 
   static TextStyle bodyStyle = lexendDecaStyle(
