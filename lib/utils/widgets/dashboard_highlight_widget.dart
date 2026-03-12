@@ -23,81 +23,85 @@ class DashboardHighlight extends StatelessWidget {
         ),
       ),
 
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Stack(
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Your today’s task\nalmost done!",
-                style: AppTheme.bodyStyle.copyWith(
-                  color: AppTheme.themeWhite,
-                  height: 1.3,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 20),
-             InkWell(
-                  onTap: onViewTaskTap ?? () {},
-                  borderRadius: BorderRadius.circular(16),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 14,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Your today’s task\nalmost done!",
+                    style: AppTheme.bodyStyle.copyWith(
+                      color: AppTheme.themeWhite,
+                      height: 1.3,
+                      fontWeight: FontWeight.w600,
                     ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFD9D4F3),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Text(
-                      "View Task",
-                      style: TextStyle(
-                        color: Color(0xFF5A36D6),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                  ),
+                  const SizedBox(height: 20),
+                  InkWell(
+                    onTap: onViewTaskTap ?? () {},
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 28,
+                        vertical: 14,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD9D4F3),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Text(
+                        "View Task",
+                        style: TextStyle(
+                          color: Color(0xFF5A36D6),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(width: 12),
+              CircularPercentIndicator(
+                lineWidth: 9,
+                percent: 0.85,
+                radius: 42.5,
+                startAngle: 80,
+                circularStrokeCap: CircularStrokeCap.round,
+                center: Text(
+                  "85%",
+                  style: TextStyle(
+                    color: AppTheme.themeWhite,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
+                backgroundColor: AppTheme.themeWhite.withValues(alpha: 0.25),
+                progressColor: AppTheme.themeWhite,
+              ),
+              const SizedBox(width: 24),
             ],
           ),
-
-          CircularPercentIndicator(
-            lineWidth: 9,
-            percent: 0.85,
-            radius: 42.5,
-            startAngle: 80,
-            circularStrokeCap: CircularStrokeCap.round,
-            center: Text(
-              "85%",
-              style: TextStyle(
-                color: AppTheme.themeWhite,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppTheme.themeWhite.withValues(alpha: 0.25),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.more_horiz,
+                color: Colors.white,
+                size: 18,
               ),
             ),
-            backgroundColor: AppTheme.themeWhite.withValues(alpha: 0.25),
-            progressColor: AppTheme.themeWhite,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: AppTheme.themeWhite.withValues(alpha: 0.25),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(
-                  Icons.more_horiz,
-                  color: Colors.white,
-                  size: 18,
-                ),
-              ),
-            ],
           ),
         ],
       ),
